@@ -6,7 +6,7 @@ import pandas as pd
 
 class DataFramePreprocessor:
     def __init__(self, df):
-        self.df = df
+        self.df = df.copy()
         self.original_df = df.copy()
 
         col_names = self.df.columns
@@ -75,8 +75,8 @@ class DataFramePreprocessor:
             num_cols.append(all_cols[index])
 
         imputer = SimpleImputer(missing_values=np.nan, strategy=strategy_name)
-        imputer.fit(self.df[num_cols].values)
-        self.df[num_cols] = imputer.transform(self.df[num_cols])
+        self.df[num_cols] = imputer.fit_transform(self.df[num_cols].values)
+        #self.df[num_cols] = imputer.transform(self.df[num_cols])
 
 
     def encode_text_data(self, strategy_name="label_encoder"):
