@@ -6,7 +6,7 @@ if __name__ == "__main__":
     df = pd.read_csv("buggy.csv")
     preprocessor = DataFramePreprocessor(df=df)
     preprocessor.info()
-    preprocessor.handle_missing_value_str()
+    preprocessor.remove_missing_values()
     print("===============")
     print(preprocessor.df.isnull().sum())
     print(preprocessor.df.head())

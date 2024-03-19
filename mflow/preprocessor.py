@@ -26,7 +26,7 @@ class DataFramePreprocessor:
         print(f"{self.df.isnull().sum()}")
 
 
-    def handle_missing_value_str(self, remove_name="row"):
+    def remove_missing_values(self, remove_name="row"):
         if remove_name == "row":
             self.df = self.df.dropna(axis=0)
             return

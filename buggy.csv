@@ -38,7 +38,7 @@ Age,Gender,Marital Status,Occupation,Monthly Income,Educational Qualifications,F
 25,Male,Single,Student,No Income,Post Graduate,5,12.977,77.5773,560009,No,Positive,No
 32,Female,Prefer not to say,House wife,No Income,Graduate,5,12.982,77.6256,560008,Yes,Negative ,Yes
 23,Female,Single,Student,No Income,Post Graduate,3,12.9438,77.5738,560004,Yes,Positive,Yes
-23,Female,Single,Student,No Income,Post Graduate,4,12.8988,77.5764,560078,Yes,Positive,Yes
+23,Female,Single,Student,No Income,Post Graduate,4,,,560078,Yes,Positive,Yes
 30,Male,Married,Self Employeed,More than 50000,Uneducated,4,12.9662,77.6068,560025,Yes,Negative ,Yes
 23,Male,Single,Student,No Income,Graduate,3,12.9565,77.5484,560026,Yes,Positive,Yes
 23,Male,Single,Student,No Income,Post Graduate,4,12.9925,77.5633,560021,Yes,Positive,Yes
@@ -47,7 +47,7 @@ Age,Gender,Marital Status,Occupation,Monthly Income,Educational Qualifications,F
 27,Female,Married,Self Employeed,10001 to 25000,Post Graduate,2,12.9261,77.6221,560034,Yes,Positive,Yes
 24,Female,Single,Student,No Income,Post Graduate,3,12.977,77.5773,560009,Yes,Positive,Yes
 23,Male,Single,Student,No Income,Post Graduate,2,12.977,77.5773,560009,Yes,Positive,Yes
-23,Female,Single,Student,No Income,Graduate,3,12.982,77.6256,560008,Yes,Negative ,Yes
+23,Female,Single,Student,No Income,Graduate,3,12.982,,560008,Yes,Negative ,Yes
 22,Female,Single,Student,10001 to 25000,Post Graduate,5,12.985,77.5533,560010,Yes,Positive,Yes
 23,Female,Single,Student,No Income,Graduate,5,13.0206,77.6479,560043,Yes,Positive,Yes
 23,Female,Single,Student,No Income,Post Graduate,2,12.977,77.5773,560009,Yes,Positive,Yes
