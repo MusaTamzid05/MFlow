@@ -1,6 +1,8 @@
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
 import numpy as np
+import pandas as pd
 
 class DataFramePreprocessor:
     def __init__(self, df):
@@ -34,10 +36,12 @@ class DataFramePreprocessor:
         print("************* Null Count **************")
         print(f"{self.df.isnull().sum()}")
 
-    def handle_all_missing_values(self):
+    def handle_all_missing_values(self,show=True):
         self.handle_missing_value_numbers()
         self.remove_missing_values()
-        print(self.df.isnull().sum())
+
+        if show:
+            print(self.df.isnull().sum())
 
 
 
@@ -94,7 +98,6 @@ class DataFramePreprocessor:
 
             text_cols.append(all_cols[index])
 
-        print(text_cols)
 
         if strategy_name == "label_encoder":
             self.label_encoders = {}
@@ -105,7 +108,28 @@ class DataFramePreprocessor:
                 self.label_encoders[col_name] = encoder
 
 
-            print(self.df.head())
+            return
+
+        # using one hot encoding
+
+        X = self.df[text_cols].values
+        ohe = OneHotEncoder()
+        X = ohe.fit_transform(X).toarray()
+        new_col_names = ohe.get_feature_names_out(text_cols)
+
+        for i in range(len(new_col_names)):
+            new_col_names[i]= new_col_names[i].replace(" ", "_")
+
+        encoded_df = pd.DataFrame(X, columns=new_col_names)
+        self.df.drop(text_cols, axis=1, inplace=True)
+        self.df = pd.concat([self.df, encoded_df], axis=1)
+
+
+
+
+
+
+
 
 
 
