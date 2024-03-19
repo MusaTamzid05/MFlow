@@ -24,3 +24,14 @@ class DataFramePreprocessor:
 
         print("************* Null Count **************")
         print(f"{self.df.isnull().sum()}")
+
+
+    def handle_missing_value_str(self, remove_name="row"):
+        if remove_name == "row":
+            self.df = self.df.dropna(axis=0)
+            return
+
+        # column
+        self.df = self.df.dropna(axis=1)
+
+

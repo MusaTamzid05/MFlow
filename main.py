@@ -3,6 +3,10 @@ from mflow.preprocessor import DataFramePreprocessor
 
 
 if __name__ == "__main__":
-    df = pd.read_csv("onlinefoods.csv")
+    df = pd.read_csv("buggy.csv")
     preprocessor = DataFramePreprocessor(df=df)
     preprocessor.info()
+    preprocessor.handle_missing_value_str()
+    print("===============")
+    print(preprocessor.df.isnull().sum())
+    print(preprocessor.df.head())
