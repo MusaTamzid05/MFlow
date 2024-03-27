@@ -28,4 +28,5 @@ def test():
 if __name__ == "__main__":
     df = pd.read_csv("housing.csv")
     regression = SimpleRegression(df=df, target_col_name="median_house_value")
+    regression.fit()
 
