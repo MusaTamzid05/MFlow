@@ -1,6 +1,8 @@
 from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 import torch
+from torch import nn
+from torch import optim
 
 from mflow.preprocessor import DataFramePreprocessor
 from tqdm import tqdm
@@ -19,6 +21,28 @@ class RegressionDataset(Dataset):
 
     def __getitem__(self, idx):
         return self.x_tensor[idx], self.y_tensor[idx]
+
+
+class SimpleRegressionModel(nn.Module):
+    def __init__(self, input_size):
+        super(SimpleRegressionModel, self).__init__()
+
+        self.seq = nn.Sequential(
+                nn.Linear(input_size, 20),
+                nn.ReLU(),
+
+                nn.Linear(20, 10),
+                nn.ReLU(),
+
+                nn.Linear(10, 5),
+                nn.ReLU(),
+
+                nn.Linear(5, 1),
+
+                )
+
+    def forward(self, x):
+        return self.seq(x)
 
 
 
@@ -41,6 +65,9 @@ class SimpleRegression:
                 y_df=y_df
                 )
 
+        self.model = SimpleRegressionModel(input_size=self.x_train.shape[1])
+        self.model = self.model.to(self.device)
+
     def fit(self, epochs=100, batch_size=30, learning_rate=0.001):
 
         train_dataset = RegressionDataset(
@@ -59,12 +86,47 @@ class SimpleRegression:
 
         val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=True)
 
+        loss_fn = nn.MSELoss()
+        optimizer = optim.Adam(self.model.parameters(), lr=learning_rate)
+
 
 
         for epoch in range(epochs):
             print(f"Epoch {epoch + 1}")
+
+            self.model.train()
+
+            train_lossses = []
+
             for item in tqdm(train_dataloader, "Training "):
                 x, y = item
+                preds = self.model(x)
+
+                loss = loss_fn(y, preds)
+
+                loss.backward()
+                optimizer.step()
+
+                train_lossses.append(loss.item())
+
+                optimizer.zero_grad()
+
+            print(f"\tLoss {sum(train_lossses) / len(train_lossses)}")
+
+
+            self.model.eval()
+
+            val_lossses = []
+
+            for item in tqdm(val_dataloader, "Validation "):
+                x, y = item
+                preds = self.model(x)
+
+                loss = loss_fn(y, preds)
+
+                val_lossses.append(loss.item())
+
+            print(f"\tLoss {sum(val_lossses) / len(val_lossses)}")
 
 
 
