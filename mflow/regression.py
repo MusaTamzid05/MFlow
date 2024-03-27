@@ -28,9 +28,13 @@ class SimpleRegression:
         X_scaled_df = preprocessor.scale(df=X_df)
         y_df[target_col_name] = y_df[target_col_name] / 100000
 
+        x_train, x_val, y_train, y_val =  preprocessor.train_test_split(
+                X_df=X_scaled_df,
+                y_df=y_df
+                )
+
+        print(x_train.shape, y_train.shape, x_val.shape, y_val.shape)
+
         dataset = RegressionDataset(X_df=X_scaled_df, y_df=y_df)
 
-        for item in dataset:
-            x, y = item
-            print(x.shape, y.shape)
 

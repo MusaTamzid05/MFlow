@@ -2,6 +2,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler 
+from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
 
@@ -139,4 +140,26 @@ class DataFramePreprocessor:
         scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
 
         return scaled_df
+
+    def train_test_split(self, X_df, y_df, test_size=0.2):
+        return train_test_split(
+                X_df,
+                y_df,
+                random_state=42,
+                test_size=test_size
+                )
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
