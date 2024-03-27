@@ -1,9 +1,9 @@
 import pandas as pd
 from mflow.preprocessor import DataFramePreprocessor
 from mflow.regression import RegressionDataset
+from mflow.regression import SimpleRegression
 
-
-if __name__ == "__main__":
+def test():
     df = pd.read_csv("housing.csv")
     preprocessor = DataFramePreprocessor(df=df)
     preprocessor.handle_all_missing_values(show=False)
@@ -22,4 +22,10 @@ if __name__ == "__main__":
         print(x.shape, y.shape)
 
 
+
+
+
+if __name__ == "__main__":
+    df = pd.read_csv("housing.csv")
+    regression = SimpleRegression(df=df, target_col_name="median_house_value")
 
