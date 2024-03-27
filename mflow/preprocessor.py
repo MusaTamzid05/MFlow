@@ -125,6 +125,19 @@ class DataFramePreprocessor:
         self.df = pd.concat([self.df, encoded_df], axis=1)
 
 
+    def get_x_y(self, y_name):
+
+        X_df = self.df.drop(y_name, axis=1)
+        y = self.df[y_name]
+        y_df = pd.DataFrame(y, columns=[y_name])
+
+        return X_df, y_df
+
+
+
+
+
+
 
 
 
