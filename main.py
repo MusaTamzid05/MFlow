@@ -1,5 +1,6 @@
 import pandas as pd
 from mflow.preprocessor import DataFramePreprocessor
+from mflow.regression import RegressionDataset
 
 
 if __name__ == "__main__":
@@ -14,6 +15,11 @@ if __name__ == "__main__":
     X_scaled_df = preprocessor.scale(df=X_df)
     y_df["median_house_value"] = y_df["median_house_value"] / 100000
 
-    print(y_df.head())
+    dataset = RegressionDataset(X_df=X_scaled_df, y_df=y_df)
+
+    for item in dataset:
+        x, y = item
+        print(x.shape, y.shape)
+
 
 
