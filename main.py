@@ -10,5 +10,10 @@ if __name__ == "__main__":
 
     X_df, y_df = preprocessor.get_x_y(y_name="median_house_value")
 
-    print(X_df.head())
+
+    X_scaled_df = preprocessor.scale(df=X_df)
+    y_df["median_house_value"] = y_df["median_house_value"] / 100000
+
     print(y_df.head())
+
+

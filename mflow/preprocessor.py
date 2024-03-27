@@ -1,6 +1,7 @@
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import StandardScaler 
 import numpy as np
 import pandas as pd
 
@@ -124,7 +125,6 @@ class DataFramePreprocessor:
         self.df.drop(text_cols, axis=1, inplace=True)
         self.df = pd.concat([self.df, encoded_df], axis=1)
 
-
     def get_x_y(self, y_name):
 
         X_df = self.df.drop(y_name, axis=1)
@@ -133,43 +133,10 @@ class DataFramePreprocessor:
 
         return X_df, y_df
 
+    def scale(self, df):
+        scaler = StandardScaler()
+        scaled_data = scaler.fit_transform(df)
+        scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return scaled_df
 
