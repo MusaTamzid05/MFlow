@@ -1,6 +1,8 @@
 import pandas as pd
 from mflow.regression import SimpleRegression
-from mflow.image_classification import PretrainImageClassifier
+from mflow.image_classification import PreTrainedImageClassifier
+
+
 
 def test_regression():
     df = pd.read_csv("housing.csv")
@@ -14,11 +16,12 @@ if __name__ == "__main__":
     val_path = "./image_dataset/classification/val"
 
 
-    image_classifier = PretrainImageClassifier(
+    image_classifier = PreTrainedImageClassifier(
             train_data_path=train_path,
             val_data_path=val_path,
             )
 
 
-    image_classifier.fit()
+    image_classifier.fit(epochs=5)
+
 
