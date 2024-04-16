@@ -86,10 +86,7 @@ class PreTrainedImageClassifier:
             total_corrects = 0
             total_data = 0
 
-            epoch_train_acc = 0.0
 
-            epoch_val_losses = 0.0
-            epoch_val_acc = 0.0
 
             for item in train_image_loader:
                 images, labels = item
@@ -114,6 +111,30 @@ class PreTrainedImageClassifier:
 
             print("Training => Acc {:.2} Loss {:.2}".format(epoch_train_acc, epoch_train_loss))
 
+            self.model.eval()
+            current_losses = []
+            total_corrects = 0
+            total_data = 0
+
+            for item in train_image_loader:
+                images, labels = item
+                images, labels = images.to(self.device), labels.to(self.device)
+
+                preds = self.model(images)
+                loss = loss_fn(preds, labels)
+
+                current_losses.append(loss.item())
+                correct = torch.eq(torch.max(F.softmax(preds, dim=1), dim=1)[1],labels).view(-1)
+                correct = torch.sum(correct).item()
+
+                total_corrects += correct
+                total_data += images.shape[0]
+
+            epoch_val_acc = total_corrects / total_data
+            epoch_val_loss = sum(current_losses) / len(current_losses)
+
+
+            print("Val => Acc {:.2} Loss {:.2}".format(epoch_val_acc, epoch_val_loss))
 
 
 

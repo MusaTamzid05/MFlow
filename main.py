@@ -22,6 +22,6 @@ if __name__ == "__main__":
             )
 
 
-    image_classifier.fit(epochs=5)
+    image_classifier.fit(epochs=10)
 
 
